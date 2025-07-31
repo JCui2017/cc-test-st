@@ -41,10 +41,6 @@ A comprehensive web-based dashboard that provides interactive visualizations of 
 ### Installation
 
 1. **Clone the repository**
-   ```bash
-   git clone https://github.com/yourusername/sdoh-dashboard.git
-   cd sdoh-dashboard
-   ```
 
 2. **Create and activate virtual environment**
    ```bash
