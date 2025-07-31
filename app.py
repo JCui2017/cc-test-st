@@ -89,7 +89,7 @@ class CensusDataManager:
         # Load state cache
         if os.path.exists(self.state_cache_file):
             try:
-                df = pd.read_csv(self.state_cache_file)
+                df = pd.read_csv(self.state_cache_file, dtype={'fips': str})
                 if not df.empty:
                     cache_time = datetime.fromisoformat(df['timestamp'].iloc[0])
                     if datetime.now() - cache_time < self.cache_duration:
@@ -105,7 +105,7 @@ class CensusDataManager:
         # Load county cache
         if os.path.exists(self.county_cache_file):
             try:
-                df = pd.read_csv(self.county_cache_file)
+                df = pd.read_csv(self.county_cache_file, dtype={'county_fips': str, 'state_fips': str})
                 if not df.empty:
                     cache_time = datetime.fromisoformat(df['timestamp'].iloc[0])
                     if datetime.now() - cache_time < self.cache_duration:
@@ -227,8 +227,8 @@ class CensusDataManager:
                                 'value': value
                             })
                         else:
-                            county_fips = row[3]
-                            state_fips = row[2]
+                            state_fips = row[2].zfill(2)
+                            county_fips = row[3].zfill(3)
                             processed_data.append({
                                 'name': name,
                                 'county_fips': county_fips,
